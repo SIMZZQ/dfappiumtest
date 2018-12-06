@@ -1,0 +1,19 @@
+AcivePage:
+  dec: 用户激活页
+  locators:
+      -
+        name: 激活手机号
+        type: id
+        value: com.dfzq.winner:id/et_mobile_tel
+      -
+        name: 激活验证码
+        type: id
+        value: com.dfzq.winner:id/et_verify_code
+      -
+        name: 发送激活验证码
+        type: id
+        value: com.dfzq.winner:id/btn_send_code
+      -
+        name: 激活
+        type: id
+        value: com.dfzq.winner:id/btn_active

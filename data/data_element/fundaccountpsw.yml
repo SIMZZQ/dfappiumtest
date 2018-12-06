@@ -1,0 +1,6 @@
+FundAccountPsw:
+   dec: 资金账号通用密码
+   Data:
+      -
+        name: 资金账号通用密码
+        psw: 147258

@@ -1,0 +1,15 @@
+PhonePswLoginPage:
+  dec: 手机号登录密码登录页
+  locators:
+      -
+        name: 登录手机号
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.EditText
+      -
+        name: 登录密码
+        type: text
+        value: new UiSelector().text("登录密码")
+      -
+        name: 登录
+        type: texts
+        value: new UiSelector().text("登录")

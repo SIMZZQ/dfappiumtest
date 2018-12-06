@@ -1,0 +1,6 @@
+VerificationCode:
+  dec: 通用验证码
+  Data:
+     -
+       name: 验证码
+       value: 888888

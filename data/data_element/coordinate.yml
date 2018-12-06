@@ -1,0 +1,11 @@
+Coordinate:
+  dec: 坐标位置
+  Data:
+    -
+      name: 行情页坐标
+      valuex: 525
+      valuey: 1471
+    -
+      name: 我的页坐标
+      valuex: 200
+      valuey: 188

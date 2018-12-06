@@ -1,0 +1,47 @@
+LoginForgetPhonePsw:
+   dec: 登录页面忘记手机密码
+   locators:
+      -
+        name: 忘记登录密码
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.TextView[2]
+      -
+        name: 手机号输入框
+        type: id
+        value: com.dfzq.winner:id/et_phone_number
+      -
+        name: 手机号页下一步
+        type: id
+        value: com.dfzq.winner:id/btn_next
+      -
+        name: 姓名
+        type: id
+        value: com.dfzq.winner:id/et_name
+      -
+        name: 身份证号
+        type: id
+        value: com.dfzq.winner:id/et_identify
+      -
+        name: 实名认证页下一步
+        type: id
+        value: com.dfzq.winner:id/btn_submit
+      -
+        name: 重置登录密码页验证码
+        type: id
+        value: com.dfzq.winner:id/et_verify_code
+      -
+        name: 重置登录密码页登录密码
+        type: id
+        value: com.dfzq.winner:id/et_login_password
+      -
+        name: 重置登录密码页确认密码
+        type: id
+        value: com.dfzq.winner:id/et_confirm_password
+      -
+        name: 重置登录密码页完成
+        type: id
+        value: com.dfzq.winner:id/btn_edit_submit
+      -
+        name: 成功页完成
+        type: id
+        value: com.dfzq.winner:id/tv_right

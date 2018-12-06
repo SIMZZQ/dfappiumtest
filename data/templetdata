@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+
+from myyamltest.data import data_tool
+
+dataes = data_tool.parseyaml()
+
+
+def get_dataes(clazz_name, method_name):
+    datum = dataes[clazz_name]['Data']
+    for data in datum:
+        if data['name'] == method_name:
+            return data
+
+{% for datatype, names in data_list.items() %}
+class {{datatype}}:{% for name in names %}
+    {{name}} = get_dataes('{{datatype}}', '{{name}}'){% endfor %}
+
+    {% endfor %}

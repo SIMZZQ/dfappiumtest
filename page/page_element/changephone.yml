@@ -1,0 +1,31 @@
+ChangePhone:
+  dec: 更换手机号
+  locators:
+      -
+        name: 旧手机验证码
+        type: id
+        value: com.dfzq.winner:id/et_verify_code
+      -
+        name: 更换手机号
+        type: id
+        value: com.dfzq.winner:id/btn_next
+      -
+        name: 旧手机下一步
+        type: id
+        value: com.dfzq.winner:id/btn_next
+      -
+        name: 新手机号
+        type: id
+        value: com.dfzq.winner:id/et_phone_number
+      -
+        name: 发送验证码
+        type: id
+        value: com.dfzq.winner:id/tv_get_verify_code
+      -
+        name: 验证码
+        type: id
+        value: com.dfzq.winner:id/et_verify_code
+      -
+        name: 新手机号确定
+        type: id
+        value: com.dfzq.winner:id/btn_next

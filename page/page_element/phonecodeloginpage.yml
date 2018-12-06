@@ -1,0 +1,35 @@
+LoginPage:
+  dec: 手机号验证码登录页
+  locators:
+      -
+        name: 手机号切换按钮
+        type: text
+        value: new UiSelector().text("手机号")
+      -
+        name: 登录手机号
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.EditText
+      -
+        name: 发送登录验证码
+        type: text
+        value: new UiSelector().text("发送验证码")
+      -
+        name: 登录验证码
+        type: text
+        value: new UiSelector().text("验证码")
+      -
+        name: 登录
+        type: texts
+        value: new UiSelector().text("登录")
+      -
+        name: 登录xpath
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.Button
+      -
+        name: 使用登录密码登录
+        type: text
+        value: new UiSelector().text("使用登录密码登录")
+      -
+        name: 手机号注册
+        type: text
+        value: new UiSelector().text("手机号注册")

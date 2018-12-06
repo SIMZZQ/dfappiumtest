@@ -1,0 +1,7 @@
+BindAccountInfo:
+   dec: 绑定资金账号数据
+   Data:
+      -
+        name: 资金账号
+        account: 00135329
+        psw: 147258

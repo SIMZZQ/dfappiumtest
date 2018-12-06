@@ -1,0 +1,7 @@
+AlertPage:
+  dec: 提示框页面
+  locators:
+      -
+        name: 确定
+        type: id
+        value: android:id/button1

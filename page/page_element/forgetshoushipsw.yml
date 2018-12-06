@@ -1,0 +1,23 @@
+ForgetShoushiPsw:
+  dec: 忘记手势密码
+  locators:
+      -
+        name: 忘记手势密码
+        type: id
+        value: com.dfzq.winner:id/btn_gesture_forget
+      -
+        name: 输入交易密码
+        type: id
+        value: com.dfzq.winner:id/secret_edit_text
+      -
+        name: 确定
+        type: id
+        value: com.dfzq.winner:id/confirm_btn
+      -
+        name: 请设置手势密码
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.TextView[1]
+      -
+        name: 请再次绘制手势密码
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.TextView[1]

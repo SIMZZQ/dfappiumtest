@@ -1,0 +1,35 @@
+ChangeFundPsw:
+  dec: 修改资金密码
+  locators:
+      -
+        name: 修改资金账户资金密码
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[4]/android.widget.TextView
+      -
+        name: 修改资金账户资金密码text
+        type: text
+        value: new UiSelector().text("修改资金账户资金密码")
+      -
+        name: 原资金密码
+        type: id
+        value: com.dfzq.winner:id/et_old_password
+      -
+        name: 新资金密码
+        type: id
+        value: com.dfzq.winner:id/et_new_password
+      -
+        name: 确认新密码
+        type: id
+        value: com.dfzq.winner:id/et_new_password_repeat
+      -
+        name: 确定
+        type: id
+        value: com.dfzq.winner:id/btn_next
+      -
+        name: 密码修改成功
+        type: id
+        value: com.dfzq.winner:id/tv_success_desc
+      -
+        name: 完成
+        type: id
+        value: com.dfzq.winner:id/tv_right

@@ -1,0 +1,7 @@
+JiuGongGe:
+   dec: 手势密码页
+   locators:
+      -
+        name: 九宫格
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.view.View[1]

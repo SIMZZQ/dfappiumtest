@@ -1,0 +1,35 @@
+ToastPage:
+  dec: 吐司提示框
+  locators:
+     -
+        name: 手机已注册
+        type: xpath
+        value: .//*[contains(@text,'手机号已经注册')]
+     -
+        name: 密码重置成功
+        type: xpath
+        value: .//*[contains(@text,'密码重置成功')]
+     -
+        name: 资金账号验证码错误
+        type: xpath
+        value: .//*[contains(@text,'请输入正确图形验证码')]
+     -
+        name: 手机号绑定成功
+        type: xpath
+        value: .//*[contains(@text,'手机号绑定成功')]
+     -
+        name: 手机号已绑定
+        type: xpath
+        value: .//*[contains(@text,'请更换手机号重试')]
+     -
+        name: 更换手机号已绑定
+        type: xpath
+        value: .//*[contains(@text,'请更换其他手机号重试')]
+     -
+        name: 手机号更换成功
+        type: xpath
+        value: .//*[contains(@text,'手机号更换成功')]
+     -
+        name: 手势密码修改成功
+        type: xpath
+        value: .//*[contains(@text,'手势密码修改成功')]

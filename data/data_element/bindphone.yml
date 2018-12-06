@@ -1,0 +1,7 @@
+BindPhone:
+   dec: 绑定手机号数据
+   Data:
+      -
+        name: 资金账号
+        account: 00140008
+        psw: 147258

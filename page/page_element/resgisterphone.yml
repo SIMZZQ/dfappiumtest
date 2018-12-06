@@ -1,0 +1,31 @@
+RegisterPhonePage:
+  dec: 手机号注册手机号输入框
+  locators:
+     -
+        name: 手机号输入框
+        type: id
+        value: com.dfzq.winner:id/et_phone_number
+     -
+        name: 下一步
+        type: id
+        value: com.dfzq.winner:id/btn_next
+     -
+        name: 验证码
+        type: id
+        value: com.dfzq.winner:id/et_verify_code
+     -
+        name: 登录密码
+        type: id
+        value: com.dfzq.winner:id/et_login_password
+     -
+        name: 确认密码
+        type: id
+        value: com.dfzq.winner:id/et_password_confirm
+     -
+        name: 注册
+        type: id
+        value: com.dfzq.winner:id/btn_register
+     -
+        name: 完成
+        type: id
+        value: com.dfzq.winner:id/tv_right

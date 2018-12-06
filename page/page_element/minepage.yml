@@ -1,0 +1,39 @@
+MinePage:
+  dec: 我的页
+  locators:
+      -
+        name: 我的
+        type: id
+        value: com.dfzq.winner:id/item_bottom_mine
+      -
+        name: 交易
+        type: id
+        value: com.dfzq.winner:id/item_bottom_trade
+      -
+        name: 理财
+        type: id
+        value: com.dfzq.winner:id/item_bottom_finance
+      -
+        name: 登录
+        type: id
+        value: com.dfzq.winner:id/home_login_btn1
+      -
+        name: 系统设置
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup[1]/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[10]/android.widget.TextView[1]
+      -
+        name: 资产总览
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup[2]/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[1]/android.widget.TextView[1]
+      -
+        name: 重置数据
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[4]/android.widget.RelativeLayout/android.widget.TextView[1]
+      -
+        name: 退出登录
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup[1]/android.support.v7.widget.RecyclerView/android.widget.TextView
+      -
+        name: 我的信息
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup[2]/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[4]/android.widget.TextView[1]

@@ -1,0 +1,6 @@
+CashTreasure:
+   dec: 现金宝充值数据
+   Data:
+      -
+        name: 金额
+        value: 1

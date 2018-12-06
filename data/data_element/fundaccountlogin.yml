@@ -1,0 +1,11 @@
+FundAccountLogin:
+   dec: 资金账号登录数据
+   Data:
+      -
+        name: 资金账号1
+        account: 00135329
+        psw: 147258
+      -
+        name: 资金账号2
+        account: 00540019
+        psw: 147258

@@ -1,0 +1,7 @@
+ChangePhone:
+   dec: 更换手机号数据
+   Data:
+      -
+        name: 资金账号
+        account: 00140009
+        psw: 147258

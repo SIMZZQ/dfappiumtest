@@ -1,0 +1,23 @@
+SingleAccountLoginPage:
+  dec: 单独资金账户登录页
+  locators:
+      -
+        name: 资金账号
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.EditText
+      -
+        name: 交易密码
+        type: text
+        value: new UiSelector().text("交易密码")
+      -
+        name: 图形验证码
+        type: text
+        value: new UiSelector().text("图形验证码")
+      -
+        name: 验证码框
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[3]/android.widget.TextView
+      -
+        name: 登录
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button

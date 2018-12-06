@@ -1,0 +1,18 @@
+ForgetPayPswInfo:
+   dec: 忘记理财支付密码数据
+   Data:
+      -
+        name: 持卡人
+        fullname: 东方
+      -
+        name: 身份证
+        idno: 110101198901010497
+      -
+        name: 卡号
+        cardno: 6226993903587866
+      -
+        name: 手机号
+        phone: 13510100041
+      -
+        name: 验证码
+        code: 999999

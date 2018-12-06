@@ -1,0 +1,27 @@
+BindPhone:
+  dec: 绑定手机号
+  locators:
+      -
+        name: 手机号
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[4]/android.widget.TextView[1]
+      -
+        name: 绑定手机号
+        type: id
+        value: com.dfzq.winner:id/btn_next
+      -
+        name: 手机号输入框
+        type: id
+        value: com.dfzq.winner:id/et_phone_number
+      -
+        name: 发送验证码
+        type: id
+        value: com.dfzq.winner:id/tv_get_verify_code
+      -
+        name: 验证码
+        type: id
+        value: com.dfzq.winner:id/et_verify_code
+      -
+        name: 确定
+        type: id
+        value: com.dfzq.winner:id/btn_next

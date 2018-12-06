@@ -1,0 +1,8 @@
+ForgetAccountInfo:
+   dec: 忘记资金账号数据
+   Data:
+      -
+        name: 账号00123382三要素
+        fullname: 李**
+        idno: 310110197209065423
+        psw: 147258

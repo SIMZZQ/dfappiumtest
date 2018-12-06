@@ -1,0 +1,23 @@
+TraderPage:
+  dec: 交易页
+  locators:
+      -
+        name: 选择登录账号
+        type: id
+        value: com.dfzq.winner:id/title_text
+      -
+        name: 账号列表
+        type: ids
+        value: com.dfzq.winner:id/account
+      -
+        name: 交易页下拉箭头
+        type: id
+        value: com.dfzq.winner:id/icon_arrow
+      -
+        name: 使用其他用户账户
+        type: id
+        value: com.dfzq.winner:id/other_account_btn
+      -
+        name: 退出交易
+        type: id
+        value: com.dfzq.winner:id/logout_btn

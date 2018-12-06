@@ -1,0 +1,71 @@
+MineFundAccountPage:
+  dec: 我的资金账户页
+  locators:
+      -
+        name: 我的资金账户
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.TextView[1]
+      -
+        name: 绑定资金账户
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.TextView
+      -
+        name: 资金账户
+        type: id
+        value: com.dfzq.winner:id/et_fund_account
+      -
+        name: 交易密码
+        type: id
+        value: com.dfzq.winner:id/et_pay_password
+      -
+        name: 确定
+        type: id
+        value: com.dfzq.winner:id/btn_next
+      -
+        name: 绑定成功校验
+        type: id
+        value: com.dfzq.winner:id/tv_fund_account_desc
+      -
+        name: 忘记资金账户
+        type: id
+        value: com.dfzq.winner:id/tv_forget_fund_account
+      -
+        name: 姓名
+        type: id
+        value: com.dfzq.winner:id/et_name
+      -
+        name: 身份证号
+        type: id
+        value: com.dfzq.winner:id/et_identify
+      -
+        name: 下一步
+        type: id
+        value: com.dfzq.winner:id/btn_submit
+      -
+        name: 我要绑定
+        type: id
+        value: com.dfzq.winner:id/btn_link
+      -
+        name: 输入交易密码
+        type: id
+        value: com.dfzq.winner:id/secret_edit_text
+      -
+        name: 验证交易密码确定
+        type: id
+        value: com.dfzq.winner:id/confirm_btn
+      -
+        name: 解绑交易密码确定
+        type: id
+        value: com.dfzq.winner:id/tv_confirm
+      -
+        name: 已绑定
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.TextView[4]
+      -
+        name: 资金账号列表1
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout
+      -
+        name: 删除
+        type: xpath
+        value: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]

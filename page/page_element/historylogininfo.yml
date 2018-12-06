@@ -1,0 +1,7 @@
+HistoryLoginInfo:
+   dec: 历史登录记录
+   locators:
+      -
+        name: 登录记录
+        type: id
+        value: com.dfzq.winner:id/ll_login_record

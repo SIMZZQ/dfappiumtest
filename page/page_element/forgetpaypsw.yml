@@ -1,0 +1,51 @@
+ForgetPayPswPage:
+  dec: 忘记理财支付密码页
+  locators:
+      -
+        name: 持卡人
+        type: id
+        value: username
+      -
+        name: 身份证
+        type: id
+        value: idNo
+      -
+        name: 卡号
+        type: id
+        value: cardnum
+      -
+        name: 手机号
+        type: xpath
+        value: //*[@id="checkBankCard"]/div[5]/div[1]/input
+      -
+        name: 获取验证码
+        type: id
+        value: getbcodev4
+      -
+        name: 验证码
+        type: xpath
+        value: //*[@id="checkBankCard"]/div[5]/div[2]/input[1]
+      -
+        name: 确定
+        type: xpath
+        value: //*[@id="checkBankCard"]/div[6]/button
+      -
+        name: 支付密码
+        type: id
+        value: password
+      -
+        name: 确认密码
+        type: id
+        value: confirmpwd
+      -
+        name: 下一步
+        type: xpath
+        value: //*[@id="resetpwd"]/div[2]/button
+      -
+        name: 忘记理财支付密码主页
+        type: class
+        value: android.webkit.WebView
+      -
+        name: 安全软键盘页
+        type: xpath
+        value: //*[@class="keyboard-box-layer"]
