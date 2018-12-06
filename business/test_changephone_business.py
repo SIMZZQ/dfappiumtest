@@ -1,9 +1,9 @@
 # coding:utf-8
 # 更换手机号案例
-from myyamltest.common.deired_caps import basedriver
-from myyamltest.page import page
-from myyamltest.data import dataes
-from myyamltest.common.methods import publicmethods
+from myyamltest.dfappiumtest.common.deired_caps import basedriver
+from myyamltest.dfappiumtest.page import page
+from myyamltest.dfappiumtest.data import dataes
+from myyamltest.dfappiumtest.common.methods import publicmethods
 import unittest,time
 
 i = 0

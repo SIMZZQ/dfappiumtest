@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from myyamltest.data import data_tool
+from myyamltest.dfappiumtest.data import data_tool
 
 dataes = data_tool.parseyaml()
 
