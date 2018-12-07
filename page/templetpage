@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from myyamltest.dfappiumtest.page import elements_tool
+from dfappiumtest.page import elements_tool
 
 pages = elements_tool.parseyaml()
 

@@ -1,9 +1,9 @@
 # coding:utf-8
 # 资金账号历史登录信息案例
-from myyamltest.dfappiumtest.common.deired_caps import basedriver
-from myyamltest.dfappiumtest.page import page
-from myyamltest.dfappiumtest.data import dataes
-from myyamltest.dfappiumtest.common.methods import publicmethods
+from dfappiumtest.common.deired_caps import basedriver
+from dfappiumtest.page import page
+from dfappiumtest.data import dataes
+from dfappiumtest.common.methods import publicmethods
 import unittest,time
 #业务流
 class historylogininfo(unittest.TestCase):
