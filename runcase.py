@@ -15,7 +15,7 @@ try:
     os.makedirs(os.path.join(runpath,'report'))
 except:
     pass
-fliename = 'D:/test_case/myyamltest/report/%s_result.html'%now
+fliename = 'D:/test_case/dfappiumtest/report/%s_result.html'%now
 # 给定文件操作权限
 fp = open(fliename,'wb')
 runner = HTMLTestRunner.HTMLTestRunner(
