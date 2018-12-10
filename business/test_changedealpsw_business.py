@@ -40,42 +40,60 @@ class changedealpsw(unittest.TestCase):
                 publicmethods(self.driver).hideWait(5)
             publicmethods(self.driver).findelement(page.MinePage.登录['type'], page.MinePage.登录['value']).click()
             time.sleep(1)
-            # 获取验证码图片起始坐标
-            beginpoint = publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
-                                                                page.FundAccountLoginPage.验证码图片['value']).location
-            # 获取验证码图片宽高
-            codesize = publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
-                                                              page.FundAccountLoginPage.验证码图片['value']).size
-            while i <= 5:
-                try:
-                    publicmethods(self.driver).findelement(page.FundAccountLoginPage.资金账户['type'],
-                                                           page.FundAccountLoginPage.资金账户['value']).clear()
-                    publicmethods(self.driver).findelement(page.FundAccountLoginPage.资金账户['type'],
-                                                           page.FundAccountLoginPage.资金账户['value']) \
-                        .send_keys(dataes.FundAccountLogin.资金账号1['account'])
-                    publicmethods(self.driver).findelement(page.FundAccountLoginPage.交易密码['type'],
-                                                           page.FundAccountLoginPage.交易密码['value']) \
-                        .send_keys(dataes.FundAccountLogin.资金账号1['psw'])
-                    # 调用识别验证码
-                    res = publicmethods(self.driver).identifyCode(beginpoint, codesize, 223)
-                    # print(res)
-                    publicmethods(self.driver).findelement(page.FundAccountLoginPage.图形验证码['type'],
-                                                           page.FundAccountLoginPage.图形验证码['value']).send_keys(res)
-                    publicmethods(self.driver).findelement(page.FundAccountLoginPage.登录['type'],
-                                                           page.FundAccountLoginPage.登录['value']).click()
-                    publicmethods(self.driver).wait(page.ToastPage.资金账号验证码错误['type'], 5,
-                                                    page.ToastPage.资金账号验证码错误['value'])
-                    i = i + 1
-                except:
-                    try:
-                        # 当图片解析异常时，更换验证码图片
-                        publicmethods(self.driver).wait(page.FundAccountLoginPage.资金账户['type'], 2,
-                                                        page.FundAccountLoginPage.资金账户['value'])
-                        publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
-                                                               page.FundAccountLoginPage.验证码图片['value']).click()
-                        i = i + 1
-                    except:
-                        i = 6
+            publicmethods(self.driver).findelement(page.FundAccountLoginPage.资金账户['type'],
+                                                   page.FundAccountLoginPage.资金账户['value']).clear()
+            publicmethods(self.driver).findelement(page.FundAccountLoginPage.资金账户['type'],
+                                                   page.FundAccountLoginPage.资金账户['value']) \
+                .send_keys(dataes.FundAccountLogin.资金账号1['account'])
+            publicmethods(self.driver).findelement(page.FundAccountLoginPage.交易密码['type'],
+                                                   page.FundAccountLoginPage.交易密码['value']) \
+                .send_keys(dataes.FundAccountLogin.资金账号1['psw'])
+            # 获取验证码text
+            res = publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
+                                                         page.FundAccountLoginPage.验证码图片['value']).text
+            # 删除中间出现的空格
+            res = res.replace(' ', '')
+            publicmethods(self.driver).findelement(page.SingleAccountLoginPage.图形验证码['type'],
+                                                   page.SingleAccountLoginPage.图形验证码['value']). \
+                send_keys(res)
+            publicmethods(self.driver).findelement(page.SingleAccountLoginPage.登录['type'],
+                                                   page.SingleAccountLoginPage.登录['value']).click()
+            # # 获取验证码图片起始坐标
+            # beginpoint = publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
+            #                                                     page.FundAccountLoginPage.验证码图片['value']).location
+            # # 获取验证码图片宽高
+            # codesize = publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
+            #                                                   page.FundAccountLoginPage.验证码图片['value']).size
+            # while i <= 5:
+            #     try:
+            #         publicmethods(self.driver).findelement(page.FundAccountLoginPage.资金账户['type'],
+            #                                                page.FundAccountLoginPage.资金账户['value']).clear()
+            #         publicmethods(self.driver).findelement(page.FundAccountLoginPage.资金账户['type'],
+            #                                                page.FundAccountLoginPage.资金账户['value']) \
+            #             .send_keys(dataes.FundAccountLogin.资金账号1['account'])
+            #         publicmethods(self.driver).findelement(page.FundAccountLoginPage.交易密码['type'],
+            #                                                page.FundAccountLoginPage.交易密码['value']) \
+            #             .send_keys(dataes.FundAccountLogin.资金账号1['psw'])
+            #         # 调用识别验证码
+            #         res = publicmethods(self.driver).identifyCode(beginpoint, codesize, 223)
+            #         # print(res)
+            #         publicmethods(self.driver).findelement(page.FundAccountLoginPage.图形验证码['type'],
+            #                                                page.FundAccountLoginPage.图形验证码['value']).send_keys(res)
+            #         publicmethods(self.driver).findelement(page.FundAccountLoginPage.登录['type'],
+            #                                                page.FundAccountLoginPage.登录['value']).click()
+            #         publicmethods(self.driver).wait(page.ToastPage.资金账号验证码错误['type'], 5,
+            #                                         page.ToastPage.资金账号验证码错误['value'])
+            #         i = i + 1
+            #     except:
+            #         try:
+            #             # 当图片解析异常时，更换验证码图片
+            #             publicmethods(self.driver).wait(page.FundAccountLoginPage.资金账户['type'], 2,
+            #                                             page.FundAccountLoginPage.资金账户['value'])
+            #             publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
+            #                                                    page.FundAccountLoginPage.验证码图片['value']).click()
+            #             i = i + 1
+            #         except:
+            #             i = 6
             try:
                 publicmethods(self.driver).findelement(page.AlertPage.确定['type'], page.AlertPage.确定['value']).click()
             except:

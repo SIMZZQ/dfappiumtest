@@ -5,7 +5,7 @@ import HTMLTestRunner
 suite = unittest.TestSuite()
 runpath = os.path.dirname(os.path.realpath(__file__))
 case_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'business') #case的路径
-allcases = unittest.defaultTestLoader.discover(case_dir,pattern='test_*.py') #在case路径下找到所有以test开头命名的文件
+allcases = unittest.defaultTestLoader.discover(case_dir,pattern='test_*.py') #在case路径下找到所有以test_开头命名的文件
 #将所有案例添加进套件
 for case in allcases:
     suite.addTests(case)
