@@ -46,10 +46,10 @@ class bindphone(unittest.TestCase):
                                                    page.FundAccountLoginPage.资金账户['value']).clear()
             publicmethods(self.driver).findelement(page.FundAccountLoginPage.资金账户['type'],
                                                    page.FundAccountLoginPage.资金账户['value']) \
-                .send_keys(dataes.FundAccountLogin.资金账号1['account'])
+                .send_keys(dataes.BindPhone.资金账号['account'])
             publicmethods(self.driver).findelement(page.FundAccountLoginPage.交易密码['type'],
                                                    page.FundAccountLoginPage.交易密码['value']) \
-                .send_keys(dataes.FundAccountLogin.资金账号1['psw'])
+                .send_keys(dataes.BindPhone.资金账号['psw'])
             # 获取验证码text
             res = publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
                                                          page.FundAccountLoginPage.验证码图片['value']).text

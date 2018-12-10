@@ -53,10 +53,10 @@ class publicmethods:
         nowtime = time.strftime("%Y-%m-%d_%H-%M-%S")
         nowdate = datetime.datetime.now().strftime('%Y-%m-%d')
         try:
-            os.makedirs('D:/test_case/myyamltest/dfappiumtest/screenpicture/%s/%s/%s' % (module, staus, nowdate)) # 创建保存当天图片目录
+            os.makedirs('D:/test_case/dfappiumtest/screenpicture/%s/%s/%s' % (module, staus, nowdate)) # 创建保存当天图片目录
         except:
             pass
-        filename = 'D:/test_case/myyamltest/dfappiumtest/screenpicture/%s/%s/%s/%s.png' %(module,staus,nowdate,nowtime)
+        filename = 'D:/test_case/dfappiumtest/screenpicture/%s/%s/%s/%s.png' %(module,staus,nowdate,nowtime)
         # print('D:/test_case/mytest/screenpicture/%s/%s' %(module,staus))
         print(filename)
         return self.driver.get_screenshot_as_file(filename)
