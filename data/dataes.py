@@ -48,6 +48,7 @@ class ForgetPayPswInfo:
 class FundAccountLogin:
     资金账号1 = get_dataes('FundAccountLogin', '资金账号1')
     资金账号2 = get_dataes('FundAccountLogin', '资金账号2')
+    机构账号 = get_dataes('FundAccountLogin', '机构账号')
 
     
 class FundAccountPsw:

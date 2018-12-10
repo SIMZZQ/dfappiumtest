@@ -184,6 +184,7 @@ class MinePage:
     重置数据 = get_locater('MinePage', '重置数据')
     退出登录 = get_locater('MinePage', '退出登录')
     我的信息 = get_locater('MinePage', '我的信息')
+    机构户我的信息 = get_locater('MinePage', '机构户我的信息')
 
     
 class LoginPage:

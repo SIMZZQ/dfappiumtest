@@ -9,3 +9,7 @@ FundAccountLogin:
         name: 资金账号2
         account: 00540019
         psw: 147258
+      -
+        name: 机构账号
+        account: 00121689
+        psw: 147258
