@@ -55,11 +55,11 @@ class bindphone(unittest.TestCase):
                                                          page.FundAccountLoginPage.验证码图片['value']).text
             # 删除中间出现的空格
             res = res.replace(' ', '')
-            publicmethods(self.driver).findelement(page.SingleAccountLoginPage.图形验证码['type'],
-                                                   page.SingleAccountLoginPage.图形验证码['value']). \
+            publicmethods(self.driver).findelement(page.FundAccountLoginPage.图形验证码['type'],
+                                                   page.FundAccountLoginPage.图形验证码['value']). \
                 send_keys(res)
-            publicmethods(self.driver).findelement(page.SingleAccountLoginPage.登录['type'],
-                                                   page.SingleAccountLoginPage.登录['value']).click()
+            publicmethods(self.driver).findelement(page.FundAccountLoginPage.登录['type'],
+                                                   page.FundAccountLoginPage.登录['value']).click()
             # # 获取验证码图片起始坐标
             # beginpoint = publicmethods(self.driver).findelement(page.FundAccountLoginPage.验证码图片['type'],
             #                                                     page.FundAccountLoginPage.验证码图片['value']).location
