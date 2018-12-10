@@ -1,0 +1,1877 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>账户主流程回归测试</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 30px; font-size: 10px; }
+table       { font-size: 30px; }
+
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">账户主流程回归测试</h1>
+<p class='attribute'><strong>测试人员 : </strong> 张展齐</p>
+<p class='attribute'><strong>开始时间 : </strong> 2018-12-10 09:14:56</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:42.989288</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 21，错误 21，通过率= 0.00%</p>
+
+<p class='description'>测试案例运行结果</p>
+</div>
+
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 0.00% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 0 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 0 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 21 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_accountswitches_business.accountswitches</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',1)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='ft1_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_accountswitches</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_1'>错误</button>
+    <div id='div_ft1_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_1'>错误</button>
+    <div id='div_ft1_1' class="collapse in">
+    <pre>
+    
+1_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_accountswitches_business.py", line 11, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_activephone_business.activephone</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',1)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='ft2_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_activephone</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_1'>错误</button>
+    <div id='div_ft2_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_1'>错误</button>
+    <div id='div_ft2_1' class="collapse in">
+    <pre>
+    
+2_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_activephone_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_bindaccount_business.bindaccount</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',1)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='ft3_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_bindaccount</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_1'>错误</button>
+    <div id='div_ft3_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_1'>错误</button>
+    <div id='div_ft3_1' class="collapse in">
+    <pre>
+    
+3_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_bindaccount_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_bindphone_business.bindphone</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',1)" class="detail" id='c4'>详细</a></td>
+</tr>
+
+<tr id='ft4_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_bindphone</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_1'>错误</button>
+    <div id='div_ft4_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_1'>错误</button>
+    <div id='div_ft4_1' class="collapse in">
+    <pre>
+    
+4_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_bindphone_business.py", line 14, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_cashtreasurepay_business.cashtreasurepay</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',1)" class="detail" id='c5'>详细</a></td>
+</tr>
+
+<tr id='ft5_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_cashtreasurepay</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_1'>错误</button>
+    <div id='div_ft5_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_1'>错误</button>
+    <div id='div_ft5_1' class="collapse in">
+    <pre>
+    
+5_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_cashtreasurepay_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_changedealpsw_business.changedealpsw</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c6',1)" class="detail" id='c6'>详细</a></td>
+</tr>
+
+<tr id='ft6_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_changedealpsw</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6_1'>错误</button>
+    <div id='div_ft6_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6_1'>错误</button>
+    <div id='div_ft6_1' class="collapse in">
+    <pre>
+    
+6_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_changedealpsw_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_changefundpsw_business.changefundpsw</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c7',1)" class="detail" id='c7'>详细</a></td>
+</tr>
+
+<tr id='ft7_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_changefundpsw</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_1'>错误</button>
+    <div id='div_ft7_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_1'>错误</button>
+    <div id='div_ft7_1' class="collapse in">
+    <pre>
+    
+7_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_changefundpsw_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_changephone_business.changephone</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c8',1)" class="detail" id='c8'>详细</a></td>
+</tr>
+
+<tr id='ft8_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_changephone</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft8_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft8_1'>错误</button>
+    <div id='div_ft8_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft8_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft8_1'>错误</button>
+    <div id='div_ft8_1' class="collapse in">
+    <pre>
+    
+8_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_changephone_business.py", line 14, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_changeshoushipsw_business.changeshoushipsw</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c9',1)" class="detail" id='c9'>详细</a></td>
+</tr>
+
+<tr id='ft9_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_changeshoushipsw</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft9_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft9_1'>错误</button>
+    <div id='div_ft9_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft9_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft9_1'>错误</button>
+    <div id='div_ft9_1' class="collapse in">
+    <pre>
+    
+9_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_changeshoushipsw_business.py", line 13, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_forgetaccount_business.forgetaccount</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c10',1)" class="detail" id='c10'>详细</a></td>
+</tr>
+
+<tr id='ft10_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_forgetaccount</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft10_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft10_1'>错误</button>
+    <div id='div_ft10_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft10_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft10_1'>错误</button>
+    <div id='div_ft10_1' class="collapse in">
+    <pre>
+    
+10_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_forgetaccount_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_forgetshoushipsw.forgetshoushipsw</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c11',1)" class="detail" id='c11'>详细</a></td>
+</tr>
+
+<tr id='ft11_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_forgetshoushipsw</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft11_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft11_1'>错误</button>
+    <div id='div_ft11_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft11_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft11_1'>错误</button>
+    <div id='div_ft11_1' class="collapse in">
+    <pre>
+    
+11_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_forgetshoushipsw.py", line 13, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_fundaccountlogin_business.fundaccountlogin</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c12',1)" class="detail" id='c12'>详细</a></td>
+</tr>
+
+<tr id='ft12_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_fundaccountlogin</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft12_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft12_1'>错误</button>
+    <div id='div_ft12_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft12_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft12_1'>错误</button>
+    <div id='div_ft12_1' class="collapse in">
+    <pre>
+    
+12_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_fundaccountlogin_business.py", line 13, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_historylogininfo_bussiness.historylogininfo</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c13',1)" class="detail" id='c13'>详细</a></td>
+</tr>
+
+<tr id='ft13_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_historylogininfo</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft13_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft13_1'>错误</button>
+    <div id='div_ft13_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft13_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft13_1'>错误</button>
+    <div id='div_ft13_1' class="collapse in">
+    <pre>
+    
+13_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_historylogininfo_bussiness.py", line 11, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_historylogininfoexitsec_bussiness.historylogininfoexitsec</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c14',1)" class="detail" id='c14'>详细</a></td>
+</tr>
+
+<tr id='ft14_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_historylogininfoexitsec</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft14_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft14_1'>错误</button>
+    <div id='div_ft14_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft14_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft14_1'>错误</button>
+    <div id='div_ft14_1' class="collapse in">
+    <pre>
+    
+14_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_historylogininfoexitsec_bussiness.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_historylogininfophone_bussiness.historylogininfophone</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c15',1)" class="detail" id='c15'>详细</a></td>
+</tr>
+
+<tr id='ft15_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_historylogininfophone</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft15_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft15_1'>错误</button>
+    <div id='div_ft15_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft15_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft15_1'>错误</button>
+    <div id='div_ft15_1' class="collapse in">
+    <pre>
+    
+15_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_historylogininfophone_bussiness.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_loginforgetphonepsw_business.loginforgetphonepsw</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c16',1)" class="detail" id='c16'>详细</a></td>
+</tr>
+
+<tr id='ft16_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_loginforgetphonepsw</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft16_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft16_1'>错误</button>
+    <div id='div_ft16_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft16_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft16_1'>错误</button>
+    <div id='div_ft16_1' class="collapse in">
+    <pre>
+    
+16_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_loginforgetphonepsw_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_phonecodelogin_business.phonecodelogin</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c17',1)" class="detail" id='c17'>详细</a></td>
+</tr>
+
+<tr id='ft17_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_phonecodelogin</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft17_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft17_1'>错误</button>
+    <div id='div_ft17_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft17_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft17_1'>错误</button>
+    <div id='div_ft17_1' class="collapse in">
+    <pre>
+    
+17_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_phonecodelogin_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_phonepswlogin_business.phonepswlogin</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c18',1)" class="detail" id='c18'>详细</a></td>
+</tr>
+
+<tr id='ft18_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_phonepswlogin</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft18_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft18_1'>错误</button>
+    <div id='div_ft18_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft18_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft18_1'>错误</button>
+    <div id='div_ft18_1' class="collapse in">
+    <pre>
+    
+18_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_phonepswlogin_business.py", line 12, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_phoneregister_business.phoneregister</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c19',1)" class="detail" id='c19'>详细</a></td>
+</tr>
+
+<tr id='ft19_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_phoneregister</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft19_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft19_1'>错误</button>
+    <div id='div_ft19_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft19_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft19_1'>错误</button>
+    <div id='div_ft19_1' class="collapse in">
+    <pre>
+    
+19_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_phoneregister_business.py", line 13, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_resetpaypsw_business.resetpaypsw</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c20',1)" class="detail" id='c20'>详细</a></td>
+</tr>
+
+<tr id='ft20_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_resetpaypsw</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft20_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft20_1'>错误</button>
+    <div id='div_ft20_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft20_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft20_1'>错误</button>
+    <div id='div_ft20_1' class="collapse in">
+    <pre>
+    
+20_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_resetpaypsw_business.py", line 13, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_unbindaccount_business.unbindaccount</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c21',1)" class="detail" id='c21'>详细</a></td>
+</tr>
+
+<tr id='ft21_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_unbindaccount</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft21_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft21_1'>错误</button>
+    <div id='div_ft21_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft21_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft21_1'>错误</button>
+    <div id='div_ft21_1' class="collapse in">
+    <pre>
+    
+21_1: Traceback (most recent call last):
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+    self.connect()
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+    (self.host,self.port), self.timeout, self.source_address)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+    raise err
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zzqqd\.jenkins\workspace\appiumtest\business\test_unbindaccount_business.py", line 13, in setUp
+    self.driver = basedriver()
+  File "D:\test_case\dfappiumtest\common\deired_caps.py", line 24, in basedriver
+    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(data['port']) + '/wd/hub', desired_caps)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 97, in __init__
+    super(WebDriver, self).__init__(command_executor, desired_capabilities, browser_profile, proxy, keep_alive)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 156, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\appium\webdriver\webdriver.py", line 136, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, parameters)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 472, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 534, in _request
+    resp = opener.open(request, timeout=self._timeout)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+    response = self._open(req, data)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+    '_open', req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+    result = func(*args)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1346, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "C:\Users\zzqqd\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: &lt;urlopen error [WinError 10061] 由于目标计算机积极拒绝，无法连接。&gt;
+
+<img hidden="hidden" src="" alt="picture_shot" height="200" width="400"></img>
+<a  hidden="hidden"  href="">picture_shot</a>
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>21</td>
+    <td>0</td>
+    <td>0</td>
+    <td>21</td>
+    <td>通过率：0.00%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+
+</body>
+</html>
