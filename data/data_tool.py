@@ -22,6 +22,7 @@ def parseyaml():
             if ".yml" in str(yaml_file_path):
                 with open(yaml_file_path, 'r', encoding='utf-8') as f: #打开文件
                     data = yaml.load(f) # 读取yaml文件
+                    # print(data)
                     dataElements.update(data) #更新字典
     return dataElements
 
