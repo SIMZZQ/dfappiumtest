@@ -17,3 +17,7 @@ AcivePage:
         name: 激活
         type: id
         value: com.dfzq.winner:id/btn_active
+      -
+        name: 短信激活
+        type: id
+        value: com.dfzq.winner:id/bt_sms_active

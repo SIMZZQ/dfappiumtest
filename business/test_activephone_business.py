@@ -48,6 +48,12 @@ class activephone(unittest.TestCase):
                 pass
             publicmethods(self.driver).findelement(page.MinePage.我的['type'], page.MinePage.我的['value']).click()
             publicmethods(self.driver).findelement(page.MinePage.登录['type'],page.MinePage.登录['value']).click()
+            try:
+                publicmethods(self.driver).wait(page.AcivePage.短信激活['type'],5,page.AcivePage.短信激活['value'])
+                publicmethods(self.driver).findelement(page.AcivePage.短信激活['type'],page.AcivePage.短信激活['value'])\
+                    .click()
+            except:
+                pass
             publicmethods(self.driver).wait(page.AcivePage.激活手机号['type'],5,page.AcivePage.激活手机号['value'])
             publicmethods(self.driver).findelement(page.AcivePage.激活手机号['type'],page.AcivePage.激活手机号['value']).send_keys(
                 publicmethods(self.driver).creatPhone())

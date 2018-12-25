@@ -17,6 +17,7 @@ class AcivePage:
     激活验证码 = get_locater('AcivePage', '激活验证码')
     发送激活验证码 = get_locater('AcivePage', '发送激活验证码')
     激活 = get_locater('AcivePage', '激活')
+    短信激活 = get_locater('AcivePage', '短信激活')
 
     
 class AlertPage:

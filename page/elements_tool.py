@@ -14,6 +14,8 @@ def parseyaml():
     '''
     pageElements = {}
     # 遍历读取yaml文件
+    # os.walk() 方法用于通过在目录树中游走输出在目录中的文件名，向上或者向下；root 所指的是当前正在遍历的这个文件夹的本身的地址，
+    # dirs 是一个 list ，内容是该文件夹中所有的目录的名字(不包括子目录)，files 同样是 list , 内容是该文件夹中所有的文件(不包括子目录)
     for fpath, dirname, fnames in os.walk(yamlPagesPath):
         for name in fnames:
             # yaml文件绝对路径
@@ -22,6 +24,7 @@ def parseyaml():
             if ".yml" in str(yaml_file_path):
                 with open(yaml_file_path, 'r', encoding='utf-8') as f: #打开文件
                     page = yaml.load(f) # 读取yaml文件
+                    # print(page)
                     pageElements.update(page) #更新字典
     return pageElements
 
@@ -33,8 +36,10 @@ def get_page_list(yamlpage):
     return:
     eg:
       {"MinePage":["我的","登录",...], "AlertPage":["确定"],...
+      说白了就是获取每一个yaml文件中的所有name加入列表作为值，文件大类作为键，生成字典
     '''
     page_object = {}
+    # items返回可遍历的(键, 值) 元组数组。
     for page, names in yamlpage.items():
         loc_names = []
         # 获取所有的loctors定位方法
